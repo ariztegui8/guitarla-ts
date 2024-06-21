@@ -10,14 +10,7 @@ import guitar9 from '../assets/guitar9.webp'
 import guitar10 from '../assets/guitar10.webp'
 import guitar11 from '../assets/guitar11.webp'
 import guitar12 from '../assets/guitar12.webp'
-
-type Guitar = {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-}
+import type { Guitar } from '../types/index'
 
 export const guitars: Guitar[] = [
     {

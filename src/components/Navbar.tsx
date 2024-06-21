@@ -1,7 +1,29 @@
 import { IoCartSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
+import { CartItem, Guitar } from "../types";
 
-const Navbar = ({ cart, deleteItem, addQuantity, deleteQuantity, vaciarCarrito, clickCart, isEmpty, cartTotal, handleClickCart }) => {
+type HeaderProps = {
+    cart: CartItem[];
+    deleteItem: (id: Guitar['id']) => void;
+    addQuantity: (id: Guitar['id']) => void;
+    deleteQuantity: (id: Guitar['id']) => void;
+    vaciarCarrito: () => void;
+    clickCart: boolean;
+    isEmpty: boolean;
+    cartTotal: number;
+    handleClickCart: () => void;
+}
+
+const Navbar = ({
+    cart,
+    deleteItem,
+    addQuantity,
+    deleteQuantity,
+    vaciarCarrito,
+    clickCart,
+    isEmpty,
+    cartTotal,
+    handleClickCart}: HeaderProps ) => {
 
 
     return (
@@ -20,7 +42,7 @@ const Navbar = ({ cart, deleteItem, addQuantity, deleteQuantity, vaciarCarrito, 
                             {cart.length}
                         </span>
                     </div>
-                    <div className={`bg-white top-[35px] right-0 p-3 shadow-md min-w-80 ${clickCart ? 'absolute' : 'hidden'}`}>
+                    <div className={`bg-white top-[35px] right-0 p-3 shadow-md min-w-80 transition-all duration-300  ${clickCart ? 'absolute' : 'hidden'}`}>
                         {isEmpty ?
                             <div className="text-center p-3 w-[300px] mb-3">
                                 <p className="font-semibold">No hay productos en el carrito</p>
@@ -48,7 +70,7 @@ const Navbar = ({ cart, deleteItem, addQuantity, deleteQuantity, vaciarCarrito, 
                                         </tr>
                                     </thead>
                                     <tr>
-                                        <td colSpan="5">
+                                        <td colSpan={5}>
                                             <hr className=" border-gray-400" />
                                         </td>
                                     </tr>
@@ -82,7 +104,7 @@ const Navbar = ({ cart, deleteItem, addQuantity, deleteQuantity, vaciarCarrito, 
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colSpan="5">
+                                                    <td colSpan={5}>
                                                         <hr className=" border-gray-400" />
                                                     </td>
                                                 </tr>

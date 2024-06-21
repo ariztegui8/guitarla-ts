@@ -7,9 +7,6 @@ const App = () => {
 
   const { cart, handleAddCart, deleteItem, addQuantity, deleteQuantity, vaciarCarrito, clickCart, isEmpty, cartTotal, handleClickCart, data} = useCart()
 
-
-
-
   return (
     <div>
       <Navbar

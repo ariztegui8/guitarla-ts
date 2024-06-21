@@ -1,6 +1,11 @@
+import type {Guitar} from '../types/index'
 
+type GuitarProps = {
+    data: Guitar[];
+    handleAddCart: (item: Guitar) => void;
+}
 
-const CardGuitar = ({ handleAddCart, data }) => {
+const CardGuitar = ({ data, handleAddCart } : GuitarProps) => {
 
 
     return (
