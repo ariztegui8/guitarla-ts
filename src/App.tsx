@@ -1,34 +1,27 @@
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import CardGuitar from "./components/CardGuitar"
 import Navbar from "./components/Navbar"
-import { useCart } from "./hooks/useCart"
 import { cartReducer, initialState } from "./reducers/cart-reducer"
 
 
 const App = () => {
 
-  const { cart, handleAddCart, deleteItem, addQuantity, deleteQuantity, vaciarCarrito, clickCart, isEmpty, cartTotal, handleClickCart} = useCart()
   const [state, dispatch] = useReducer(cartReducer, initialState)
 
-  console.log(state);
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(state.cart))
+}, [state.cart])
   
 
   return (
     <div>
       <Navbar
-        cart={cart}
-        deleteItem={deleteItem}
-        addQuantity={addQuantity}
-        deleteQuantity={deleteQuantity}
-        vaciarCarrito={vaciarCarrito}
-        clickCart={clickCart}
-        isEmpty={isEmpty}
-        cartTotal={cartTotal}
-        handleClickCart={handleClickCart}
+        cart={state.cart}
+        dispatch={dispatch}
       />
       <CardGuitar
-        handleAddCart={handleAddCart}
         state={state}
+        dispatch={dispatch}
       />
     </div>
   )

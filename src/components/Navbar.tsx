@@ -1,29 +1,25 @@
 import { IoCartSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
-import { CartItem, Guitar } from "../types";
+import { CartItem } from "../types";
+import { useMemo, useState } from "react";
+import { CartActions } from "../reducers/cart-reducer";
 
 type HeaderProps = {
     cart: CartItem[];
-    deleteItem: (id: Guitar['id']) => void;
-    addQuantity: (id: Guitar['id']) => void;
-    deleteQuantity: (id: Guitar['id']) => void;
-    vaciarCarrito: () => void;
-    clickCart: boolean;
-    isEmpty: boolean;
-    cartTotal: number;
-    handleClickCart: () => void;
+    dispatch: React.Dispatch<CartActions>
 }
 
-const Navbar = ({
-    cart,
-    deleteItem,
-    addQuantity,
-    deleteQuantity,
-    vaciarCarrito,
-    clickCart,
-    isEmpty,
-    cartTotal,
-    handleClickCart}: HeaderProps ) => {
+const Navbar = ({ cart, dispatch }: HeaderProps ) => {
+
+        const [clickCart, setClickCart] = useState(false)
+
+        const isEmpty = useMemo(() => cart.length === 0, [cart])
+
+        const cartTotal = useMemo(() => (cart.reduce((total, item) => total + (item.price * item.quantity), 0)), [cart])
+    
+        const handleClickCart = () => {
+            setClickCart(!clickCart)
+        }
 
 
     return (
@@ -89,9 +85,9 @@ const Navbar = ({
                                                     </td>
                                                     <td className="p-2">
                                                         <div className="flex items-center gap-1">
-                                                            <button onClick={() => deleteQuantity(item.id)} className="bg-black text-white px-1">-</button>
+                                                            <button onClick={() => dispatch({type: 'decrease-quantity', payload: {id: item.id}})} className="bg-black text-white px-1">-</button>
                                                             <p>{item.quantity}</p>
-                                                            <button onClick={() => addQuantity(item.id)} className="bg-black text-white px-1">+</button>
+                                                            <button onClick={() => dispatch({type: 'increase-quantity', payload: {id: item.id}})} className="bg-black text-white px-1">+</button>
                                                         </div>
                                                     </td>
                                                     <td className="p-2">
@@ -99,7 +95,7 @@ const Navbar = ({
                                                             size={22}
                                                             color="rgb(239 68 68)"
                                                             className="cursor-pointer"
-                                                            onClick={() => deleteItem(item.id)}
+                                                            onClick={() => dispatch({type: 'remove-from-cart' , payload: {id: item.id}})}
                                                         />
                                                     </td>
                                                 </tr>
@@ -122,7 +118,7 @@ const Navbar = ({
                         }
 
                         <div>
-                            <button onClick={() => vaciarCarrito()} className="bg-black text-white w-full p-2">Vaciar Carrito</button>
+                            <button onClick={() => dispatch({type: 'clear-cart'})} className="bg-black text-white w-full p-2">Vaciar Carrito</button>
                         </div>
 
                     </div>

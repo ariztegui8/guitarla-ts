@@ -1,12 +1,11 @@
-import { CartState } from '../reducers/cart-reducer';
-import type {Guitar} from '../types/index'
+import { CartActions, CartState } from '../reducers/cart-reducer';
 
 type GuitarProps = {
-    handleAddCart: (item: Guitar) => void;
     state: CartState;
+    dispatch: React.Dispatch<CartActions>
 }
 
-const CardGuitar = ({handleAddCart, state } : GuitarProps) => {
+const CardGuitar = ({ state, dispatch } : GuitarProps) => {
 
 
     return (
@@ -20,7 +19,7 @@ const CardGuitar = ({handleAddCart, state } : GuitarProps) => {
                         <h2 className='font-bold text-2xl'>{guitar.name}</h2>
                         <p className='text-sm mb-2'>{guitar.description}</p>
                         <p className='font-bold text-3xl text-amber-600 mb-2'>${guitar.price}</p>
-                        <button onClick={() => handleAddCart(guitar)} className='bg-black text-white font-bold p-1'>Agregar al carrito</button>
+                        <button onClick={() => dispatch({type: 'add-to-cart' , payload: {item: guitar}})} className='bg-black text-white font-bold p-1'>Agregar al carrito</button>
                     </div>
                 </div>
             ))}
