@@ -1,16 +1,17 @@
+import { CartState } from '../reducers/cart-reducer';
 import type {Guitar} from '../types/index'
 
 type GuitarProps = {
-    data: Guitar[];
     handleAddCart: (item: Guitar) => void;
+    state: CartState;
 }
 
-const CardGuitar = ({ data, handleAddCart } : GuitarProps) => {
+const CardGuitar = ({handleAddCart, state } : GuitarProps) => {
 
 
     return (
         <div className='grid grid-cols-1 gap-5 py-10 max-w-6xl m-auto sm:grid-cols-2 lg:grid-cols-3 '>
-            {data.map(guitar => (
+            {state.data.map(guitar => (
                 <div key={guitar.id} className="flex gap-6 items-center justify-center shadow-md">
                     <div className='w-24'>
                         <img className='w-full' src={guitar.image} alt="" />

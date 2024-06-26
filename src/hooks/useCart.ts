@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react"
-import { guitars } from "../data/db"
 import type { CartItem, Guitar } from '../types/index'
 
 export const useCart = () => {
@@ -11,7 +10,6 @@ export const useCart = () => {
 
     const [cart, setCart] = useState(initialCart)
     const [clickCart, setClickCart] = useState(false)
-    const [data] = useState(guitars)
 
     const MAX_QUANTITY = 10
     const MIN_QUANTITY = 1
@@ -91,7 +89,6 @@ export const useCart = () => {
         isEmpty,
         cartTotal,
         handleClickCart,
-        data
 
     }
 }
